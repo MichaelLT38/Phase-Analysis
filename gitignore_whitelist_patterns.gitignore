@@ -1,10 +1,4 @@
 
-## 2. .gitignore
-
-You asked to ignore **everything except** the `.ipynb` and `.png` files. The cleanest, long-term way to express this in Git is the "ignore all, then un-ignore (whitelist)" pattern. Note the directory rules are needed so Git can descend into subfolders to find the whitelisted files.
-
-<llm-snippet-file>.gitignore</llm-snippet-file>
-```gitignore
 # Ignore everything by default
 *
 
@@ -20,20 +14,3 @@ You asked to ignore **everything except** the `.ipynb` and `.png` files. The cle
 
 # Keep this .gitignore itself
 !.gitignore
-```
-
-### How this works
-- `*` ignores every file.
-- `!*/` re-includes directories so Git can recurse into them (otherwise whitelisted files in subfolders would never be seen).
-- `!*.ipynb` and `!*.png` whitelist the file types you want to track.
-- `!.gitignore` keeps the ignore file itself under version control so the rules travel with the repo.
-
-This is a robust, long-term solution: any new `.ipynb` or `.png` file (in the root or in subdirectories) is tracked automatically, while everything else — including the `.venv`, `.idea`, and generated artifacts — stays ignored.
-
-> **Tip:** If files like `.idea/` were already committed before adding this `.gitignore`, you'll need to untrack them once with:
-> ```bash
-> git rm -r --cached .idea
-> ```
-> Then commit. `.gitignore` only affects untracked files, not files already in the index.
-
-Let me know if you'd like the `.gitignore` to keep specific files (like `README.md`) tracked as well!
